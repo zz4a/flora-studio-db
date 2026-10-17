@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Cormorant Garamond";
+  --font-sans: "DM Sans";
+
+  /* Material 3-inspired semantic roles — light */
+  --primary: #198155;
+  --on-primary: #ffffff;
+  --primary-container: #dcefe3;
+  --on-primary-container: #092e1d;
+  --secondary: #F43F5E;
+  --on-secondary: #ffffff;
+  --secondary-container: #ffe4e9;
+  --on-secondary-container: #4a1020;
+  --tertiary: #7c5c9d;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #eee4f8;
+  --on-tertiary-container: #32213f;
+  --surface: #FAFAFB;
+  --surface-container-low: #f8faf7;
+  --surface-container: #f2f5f1;
+  --surface-container-high: #e8eee8;
+  --surface-container-highest: #dde6de;
+  --surface-variant: #F2F5F1;
+  --on-surface: #1b211d;
+  --on-surface-variant: #4f5d54;
+  --outline: #75847a;
+  --outline-variant: #d5ded6;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #410002;
+  --scrim: rgba(0,0,0,.32);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+
+  color-scheme: light;
+}
+
+html.dark {
+  --primary: #80D89F;
+  --on-primary: #0b321d;
+  --primary-container: #244632;
+  --on-primary-container: #d9f6e3;
+  --secondary: #ff8da0;
+  --on-secondary: #4a1020;
+  --secondary-container: #552733;
+  --on-secondary-container: #ffd9e0;
+  --tertiary: #c9a6e6;
+  --on-tertiary: #2f1742;
+  --tertiary-container: #443052;
+  --on-tertiary-container: #f0ddff;
+  --surface: #121212;
+  --surface-container-low: #191b19;
+  --surface-container: #1E1E1E;
+  --surface-container-high: #282d29;
+  --surface-container-highest: #333a34;
+  --surface-variant: #343b35;
+  --on-surface: #edf4ef;
+  --on-surface-variant: #bcc9c0;
+  --outline: #819087;
+  --outline-variant: #39423b;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--primary-container); color: var(--on-primary-container); }
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .surface { background: var(--surface); color: var(--on-surface); }
+  .surface-container { background: var(--surface-container); }
+  .surface-high { background: var(--surface-container-high); }
+  .outline-border { border-color: var(--outline-variant); }
+}
+
+@layer components {
+  .m3-card {
+    @apply rounded-3xl border transition duration-300;
+    border-color: var(--outline-variant);
+    background: var(--surface-container-low);
+  }
+  .m3-card:hover { box-shadow: var(--shadow, 0 4px 12px rgba(34,29,30,.10)); }
+  .m3-focus:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary) 55%, transparent);
+    outline-offset: 3px;
+  }
+  .m3-ripple {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .m3-ripple::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--on-surface);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease;
+  }
+  .m3-ripple:hover::after { opacity: .06; }
+  .m3-ripple:active::after { opacity: .12; }
+  .eyebrow {
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-size: .70rem;
+    font-weight: 700;
+  }
+}
+
+/* Accessible reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+body { min-height: 100vh; }
+a { text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+input[type="date"], input[type="datetime-local"] { color-scheme: light dark; }
+@media print { header, nav, button, .print\:hidden { display: none !important; } body { background: white !important; color: #111 !important; } main { padding: 0 !important; max-width: none !important; } .m3-card { break-inside: avoid; box-shadow: none !important; } }
